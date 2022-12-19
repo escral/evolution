@@ -1,0 +1,19 @@
+.message {
+    @apply flex items-center rounded font-normal text-sm px-4 py-3;
+
+    @apply bg-sky-50 text-dark;
+
+    &--info {
+        i {
+            @apply text-blue-400;
+        }
+    }
+
+    &--success {
+        @apply bg-green-100 text-green-900;
+    }
+
+    &--warning {
+        @apply bg-amber-100 text-orange-900 border-2 border-[#e3d4a3];
+    }
+}

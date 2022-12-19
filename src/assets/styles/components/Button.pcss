@@ -1,0 +1,89 @@
+@layer components {
+    .button {
+        @apply focus:ring-2 font-bold rounded text-sm px-4 py-2 focus:outline-none flex items-center justify-center flex-none;
+
+        --text: 255, 255, 255;
+        --bg: var(--color-primary);
+        --bg-hover: var(--color-primary-darken);
+        --tw-ring-color: rgba(var(--bg), 0.5);
+
+        background: rgb(var(--bg));
+        color: rgb(var(--text));
+
+        &:hover {
+            background: rgb(var(--bg-hover));
+        }
+
+        i {
+            margin-top: 2px;
+            @apply align-middle;
+        }
+
+        &--large {
+            @apply px-5 py-2.5 text-base;
+        }
+
+        &--small {
+            @apply px-3 py-1.5 text-xs;
+        }
+
+        &--ghost {
+            @apply bg-transparent border-2 hover:bg-transparent;
+
+            --text: var(--bg);
+            border-color: rgb(var(--bg));
+
+            &:hover {
+                border-color: rgb(var(--bg-hover));
+                color: rgb(var(--bg-hover));
+            }
+        }
+
+        &--dashed{
+            @apply bg-transparent border-2 hover:bg-transparent;
+
+            --text: var(--bg);
+            border-color: rgba(var(--bg), 0.3);
+            border-style: dashed;
+
+            &:hover {
+                border-color: rgba(var(--bg-hover), 0.7);
+                color: rgb(var(--bg-hover));
+            }
+        }
+
+        &--text {
+            @apply bg-transparent hover:bg-transparent active:ring-0 focus:ring-0;
+
+            --text: var(--bg);
+            border-color: rgb(var(--bg));
+
+            &:hover, &:focus {
+                color: rgb(var(--bg-hover));
+                background: rgb(242, 244, 247);
+            }
+        }
+
+        /* === */
+
+        &--success {
+            --bg: var(--color-success);
+            --bg-hover: var(--color-success-darken);
+        }
+
+        &--gray {
+            --bg: 226, 231, 238;
+            --bg-hover: var(--color-secondary-lighten);
+            --text: var(--color-secondary-darken);
+
+            &:hover, &:focus {
+                color: rgb(var(--text));
+            }
+        }
+
+        &--danger {
+            --bg: var(--color-danger);
+            --bg-hover: var(--color-danger-darken);
+        }
+    }
+}

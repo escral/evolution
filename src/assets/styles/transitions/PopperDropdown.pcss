@@ -1,0 +1,12 @@
+.v-popper--theme-dropdown.v-popper__popper {
+    &.v-popper__popper--show-from .v-popper__wrapper {
+        opacity: 0;
+        transform: scale(.8);
+    }
+
+    &.v-popper__popper--show-to .v-popper__wrapper {
+        opacity: 1;
+        transform: none;
+        transition: transform .1s, opacity .1s;
+    }
+}

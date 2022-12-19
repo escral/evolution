@@ -1,0 +1,204 @@
+@layer components {
+    .input-select {
+        --height: 2.75rem; /* 44px */
+
+        @apply cursor-pointer select-none appearance-none;
+        @apply placeholder-gray-500;
+        @apply flex items-center;
+        @apply transition duration-200 ease-in-out;
+        @apply focus-within:ring-0 focus-within:border-primary;
+
+        line-height: 1.1;
+        height: var(--height);
+
+        &:disabled,
+        &[readonly] {
+            @apply bg-gray-100 cursor-not-allowed;
+        }
+
+        &--small {
+            --height: 1.875rem; /* 28px */
+
+            @apply leading-none;
+        }
+
+        &--large {
+            --height: 2.25rem; /* 36px */
+
+            .input-select__value {
+                @apply text-sm;
+            }
+        }
+
+        &--disabled {
+            @apply cursor-default;
+        }
+
+        &__value {
+            @apply relative w-full flex items-center rounded-md py-0;
+
+            height: var(--height);
+            line-height: var(--height);
+
+            &:focus {
+                @apply outline-none;
+            }
+
+            &__text {
+                @apply flex-grow truncate px-3;
+
+                &__title {
+                    @apply truncate;
+                }
+
+                &__subtitle {
+                    @apply truncate text-gray-600;
+
+                    font-size: .9em;
+                }
+            }
+        }
+
+        &__input {
+            @apply relative w-full rounded-md px-3 bg-transparent z-[1];
+            height: var(--height);
+            line-height: var(--height);
+
+            &:focus {
+                @apply outline-none;
+            }
+        }
+
+        &__placeholder {
+            @apply absolute left-[1px] top-[-1px] px-3 pr-1 z-0 pointer-events-none truncate w-full;
+            line-height: var(--height);
+
+            width: calc(100% - var(--height));
+
+            &--autocomplete {
+                @apply text-gray-500;
+            }
+        }
+
+        &__loader {
+            @apply absolute right-0 flex items-center justify-center pointer-events-none;
+
+            height: var(--height);
+            width: var(--height);
+        }
+
+        &__image {
+            @apply mx-2 flex-none rounded-full flex-none;
+
+            height: calc(var(--height) - 6px);
+            width: calc(var(--height) - 6px);
+
+            & + .input-select__value__text {
+                @apply pl-0;
+            }
+        }
+
+        &__arrow {
+            @apply text-gray-500 flex items-center justify-center flex-none pointer-events-none text-sm;
+
+            height: var(--height);
+            width: var(--height);
+            /*margin: -1px -1px 0 0;*/
+
+            i {
+                @apply transition;
+            }
+
+            .dropdown--opened & i {
+                @apply rotate-180;
+            }
+        }
+
+        &--search {
+            .input-select__arrow {
+                @apply absolute top-[2px] right-[2px] z-[1] rounded-md bg-white;
+
+                height: calc(var(--height) - 4px);
+                width: calc(var(--height) - 4px);
+                margin: 0;
+            }
+
+            .input-select__input {
+                padding-right: var(--height);
+            }
+        }
+
+        &__clear {
+            @apply text-gray-500 flex items-center justify-center transition absolute top-[2px] right-[2px] z-[1] rounded-md bg-white hover:bg-gray-200;
+
+            height: calc(var(--height) - 6px);
+            width: calc(var(--height) - 6px);
+
+            i {
+                height: 14px;
+                width: 14px;
+            }
+        }
+
+        &__options {
+            @apply font-normal shadow-md p-1 mt-1 rounded-md w-full bg-white flex flex-col gap-y-1 max-h-64 overflow-y-auto fancy-scroll;
+
+            min-width: 100%;
+            width: max-content;
+
+            &__no-results {
+                @apply text-center px-3 py-2 text-gray-600;
+            }
+        }
+
+        &__option {
+            @apply rounded-md px-3 hover:bg-primary/10 flex items-center;
+
+            height: var(--height);
+
+            &--focused {
+                @apply ring-2 ring-primary/10;
+            }
+
+            &--selected {
+                @apply bg-primary/10;
+
+                .input-select__option__text__title {
+                    @apply text-primary font-bold;
+                }
+            }
+
+            &__image {
+                @apply mr-2 flex-none rounded-full;
+
+                height: calc(var(--height) - 6px);
+                width: calc(var(--height) - 6px);
+
+                margin: -0.5rem 0.5rem -0.5rem -0.5rem;
+            }
+
+            &__text {
+                @apply overflow-hidden;
+
+                &__title {
+                    @apply truncate;
+                }
+
+                &__subtitle {
+                    @apply truncate text-gray-600;
+
+                    font-size: .9em;
+                }
+            }
+
+            &--group {
+                @apply font-bold cursor-default hover:bg-transparent pt-2 pb-1;
+                height: auto;
+            }
+
+            &--in-group {
+                @apply pl-6;
+            }
+        }
+    }
+}

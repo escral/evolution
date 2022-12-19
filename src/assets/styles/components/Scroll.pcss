@@ -1,0 +1,43 @@
+@layer components {
+    .fancy-scroll {
+        &::-webkit-scrollbar {
+            @apply select-none w-1.5 h-full;
+        }
+
+        &::-webkit-scrollbar-track {
+            @apply bg-secondary-lighten;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            @apply bg-dark;
+        }
+    }
+
+    .fancy-scroll-x {
+        &::-webkit-scrollbar {
+            @apply select-none h-1.5 w-full;
+        }
+
+        &::-webkit-scrollbar-track {
+            @apply bg-secondary-lighten;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            @apply bg-dark transition duration-300;
+        }
+    }
+
+    .fancy-input-scroll {
+        &::-webkit-scrollbar {
+            @apply select-none w-1.5 h-full;
+        }
+
+        &::-webkit-scrollbar-track {
+            @apply bg-secondary-lighten rounded-tr-md;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            @apply bg-dark rounded-md;
+        }
+    }
+}

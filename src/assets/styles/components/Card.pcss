@@ -1,0 +1,52 @@
+@layer components {
+    .card {
+        @apply rounded-lg p-4 bg-white;
+
+        &--with-parts {
+            @apply p-0;
+        }
+
+        &--fit {
+            @apply w-fit;
+        }
+
+        &--center {
+            @apply w-fit mx-auto;
+        }
+
+        &--step {
+            @apply w-full;
+        }
+
+        &__header {
+            @apply px-4 h-20 mb-1 flex items-center justify-center pb-0 font-bold text-2xl relative;
+
+            &::after {
+                @apply h-1 rounded bg-gray-300 absolute top-full w-full;
+
+                content: "";
+                display: block;
+                max-width: 120px;
+            }
+        }
+
+        &__content {
+            @apply p-4;
+        }
+
+        &__side {
+            @apply absolute top-0 left-full ml-8 min-w-[18rem] space-y-4;
+        }
+    }
+
+    .card-container {
+        width: 100%;
+        max-width: 1000px;
+    }
+
+    .cards {
+        @apply space-y-8;
+    }
+}
+
+

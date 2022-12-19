@@ -1,0 +1,37 @@
+@layer components {
+    .context-menu {
+        @apply rounded p-1 bg-white shadow-lg;
+
+        &__item {
+            @apply block w-full py-1.5 px-4 transition-colors cursor-pointer rounded flex items-center justify-start leading-tight;
+
+            &:not(.context-menu__item--group-name):hover {
+                @apply bg-gray-50;
+            }
+
+            .context-menu__item__icon {
+                @apply mr-2 w-4;
+
+                &__element {
+                    @apply leading-tight;
+                }
+            }
+
+            &__text {
+                @apply align-middle;
+            }
+
+            &--group-name {
+                text-align: center;
+                border-bottom: 2px solid #323232;
+                color: #c4c4c4;
+                padding-bottom: 7px;
+            }
+        }
+
+        &__separator {
+            border-bottom: 1px solid #383838;
+            margin: $padding / 4 0;
+        }
+    }
+}

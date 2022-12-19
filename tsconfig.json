@@ -1,0 +1,32 @@
+{
+    "extends": "@vue/tsconfig/tsconfig.json",
+    "compilerOptions": {
+        "jsx": "preserve",
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "skipLibCheck": true,
+        "strict": false,
+        "allowJs": true,
+        "noEmit": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "types": [
+            "node",
+            "./src/types"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ]
+        },
+        "typeRoots": [
+            "./src/types",
+        ]
+    },
+    "include": [
+        "./src/**/*",
+        "./auto-imports.d.ts"
+    ]
+}

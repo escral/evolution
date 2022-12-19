@@ -1,0 +1,139 @@
+.app-modal {
+    @apply w-full h-full fixed z-50 flex flex-col bg-gray-700/20;
+
+    &--active {
+        z-index: 51;
+    }
+
+    &__container {
+        @apply shadow-lg m-auto;
+    }
+
+    &__header {
+        @apply h-12 flex items-center justify-between;
+
+        &__content {
+            @apply flex-grow text-center;
+        }
+    }
+
+    &.app-modal--absolute {
+        @apply absolute;
+    }
+
+    &.app-modal--right {
+        @apply top-0 right-0;
+
+        .app-modal {
+            &__header {
+                flex-direction: row-reverse;
+
+                &__content {
+                    @apply text-center;
+                }
+            }
+
+            &__close + .app-modal__header__content {
+                @apply text-right;
+            }
+        }
+    }
+
+    &.app-modal--left {
+        @apply top-0 left-0;
+
+        .app-modal {
+            &__header {
+                flex-direction: row-reverse;
+
+                &__content {
+                    @apply text-center;
+                }
+            }
+
+            &__close + .app-modal__header__content {
+                @apply text-right;
+            }
+        }
+    }
+
+    &.app-modal--center {
+        @apply top-0 left-0;
+    }
+
+    &.app-modal--context-menu {
+        @apply w-auto h-auto absolute bg-none z-[51];
+    }
+
+    &.app-modal--free {
+        @apply w-auto h-auto bg-none;
+    }
+
+    &__close {
+        @apply h-10 w-10 mx-1 text-black flex items-center justify-center cursor-pointer hover:bg-black/5 rounded flex-none;
+
+        & + .app-modal__header__content {
+            @apply text-left;
+        }
+    }
+}
+
+.app-modal-enter-active,
+.app-modal-leave-active {
+    transition: transform .2s ease-out;
+
+    .app-modal__container {
+        transition: transform .2s ease-out;
+    }
+}
+
+.app-modal--right {
+    &.app-modal-enter-from,
+    &.app-modal-leave-to {
+        .app-modal__container {
+            transform: translateX(100%);
+        }
+    }
+}
+
+.app-modal--left {
+    &.app-modal-enter-from,
+    &.app-modal-leave-to {
+        .app-modal__container {
+            transform: translateX(-100%);
+        }
+    }
+}
+
+.app-modal--center, .app-modal--context-menu {
+    &.app-modal-enter-active,
+    &.app-modal-leave-active {
+        transition: transform .1s ease-out, opacity .1s ease-out;
+
+        .app-modal__container {
+            transition: transform .1s ease-out, opacity .1s ease-out;
+        }
+    }
+
+    &.app-modal-enter-from,
+    &.app-modal-leave-to {
+        opacity: 0;
+
+        .app-modal__container {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+    }
+}
+
+
+.app-modal--free {
+    &.app-modal-enter-active,
+    &.app-modal-leave-active {
+        transition: none;
+
+        .app-modal__container {
+            transition: none;
+        }
+    }
+}

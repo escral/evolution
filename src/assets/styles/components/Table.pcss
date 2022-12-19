@@ -1,0 +1,92 @@
+@layer components {
+    .table {
+        @apply text-left w-full border-collapse;
+
+        th {
+            @apply font-bold;
+
+            &.table__image:first-child {
+                @apply w-1 pl-2;
+            }
+        }
+
+        td {
+            @apply py-2 px-4;
+
+            &.table__image:first-child {
+                @apply w-1 pl-2;
+            }
+        }
+
+        td, th {
+            &.--action {
+                @apply cursor-pointer text-center text-lg;
+            }
+
+            &.--danger {
+                @apply text-gray-400 hover:text-danger;
+            }
+        }
+
+        thead {
+            @apply text-sm;
+
+            th {
+                @apply py-2 px-4 underline underline-offset-4;
+                text-decoration-thickness: 2px;
+
+                &:first-child {
+                    @apply rounded-l-lg;
+                }
+
+                &:last-child {
+                    @apply rounded-r-lg;
+                }
+            }
+        }
+
+        tbody {
+            @apply text-lg;
+
+            tr {
+                &:nth-child(2n) {
+                    td {
+                        @apply bg-gray-50/50;
+
+                        &:first-child {
+                            @apply rounded-l-lg;
+                        }
+
+                        &:last-child {
+                            @apply rounded-r-lg;
+                        }
+                    }
+                }
+            }
+        }
+
+        tfoot {
+            @apply text-sm font-bold;
+
+            td {
+                @apply py-2 px-4;
+
+                &:first-child {
+                    @apply rounded-l-lg;
+                }
+
+                &:last-child {
+                    @apply rounded-r-lg;
+                }
+            }
+        }
+
+        &__not-found {
+            @apply py-4 px-6 text-center;
+        }
+
+        &__unit {
+            @apply ml-2 text-sm text-gray-400;
+        }
+    }
+}

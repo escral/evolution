@@ -1,0 +1,11 @@
+<template>
+    <header class="header">
+        <div class="header__container">
+            Header        
+        </div>
+    </header>
+</template>
+
+<script setup>
+
+</script>

@@ -1,0 +1,41 @@
+@import "vue-toastification/dist/index.css";
+
+.Vue-Toastification__fade-leave-active,
+.Vue-Toastification__fade-enter-active {
+    animation-duration: 250ms;
+    animation-fill-mode: both;
+}
+
+.Vue-Toastification__fade-move {
+    transition-timing-function: ease-in-out;
+    transition-property: all;
+    transition-duration: 100ms;
+}
+
+.Vue-Toastification__toast {
+    @apply p-4 rounded-lg min-h-0 min-w-0;
+}
+
+.Vue-Toastification__close-button {
+    @apply p-4 ml-4 -m-4;
+}
+
+.Vue-Toastification__container.top-left, .Vue-Toastification__container.top-right, .Vue-Toastification__container.top-center {
+    top: 4.5rem;
+}
+
+.Vue-Toastification__toast--success {
+    @apply bg-success;
+}
+
+.Vue-Toastification__toast--warning {
+    @apply bg-amber-100 text-orange-900;
+
+    .Vue-Toastification__close-button {
+        @apply text-orange-900;
+    }
+}
+
+.Vue-Toastification__toast--error {
+    @apply bg-danger;
+}

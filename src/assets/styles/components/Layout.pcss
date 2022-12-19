@@ -1,0 +1,23 @@
+.layout {
+    @apply flex gap-y-4 gap-x-8 p-4 h-full flex-grow;
+
+    &__sidebar {
+        @apply w-72 flex-none;
+    }
+
+    &__content {
+        @apply flex-1;
+    }
+}
+
+.step-layout {
+    @apply flex justify-center gap-y-4 gap-x-8 p-4 pb-0;
+
+    &__sidebar {
+        @apply w-72;
+    }
+
+    &__content {
+        @apply h-max;
+    }
+}

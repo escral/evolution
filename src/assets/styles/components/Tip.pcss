@@ -1,0 +1,30 @@
+.tip {
+    @apply card relative;
+
+    &__header {
+        @apply mb-2 font-bold;
+        @apply text-blue-400;
+    }
+
+    &__close {
+        @apply w-12 h-12 flex-none flex items-center justify-center text-secondary hover:text-danger cursor-pointer absolute top-0 right-0;
+    }
+
+    &--success {
+        .tip__header {
+            @apply text-success;
+        }
+    }
+
+    &--warning {
+        .tip__header {
+            @apply text-amber-500;
+        }
+    }
+
+    &--danger {
+        .tip__header {
+            @apply text-danger;
+        }
+    }
+}

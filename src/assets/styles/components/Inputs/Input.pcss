@@ -1,0 +1,111 @@
+@layer components {
+    [type='text'],
+    [type='email'],
+    [type='url'],
+    [type='password'],
+    [type='number'],
+    [type='date'],
+    [type='datetime-local'],
+    [type='month'],
+    [type='search'],
+    [type='tel'],
+    [type='time'],
+    [type='week'],
+    textarea,
+    .input-select__value {
+        @apply border-2 rounded-lg border-secondary-lighten py-1.5;
+
+        &.--focused, &:focus {
+            @apply ring-0 border-primary;
+        }
+
+        width: 16em;
+        max-width: 100%;
+        min-width: 6em;
+
+        &::placeholder {
+            @apply text-gray-400;
+        }
+
+        &[disabled] {
+            @apply opacity-30 cursor-default;
+        }
+    }
+
+    [type='number'] {
+        @apply font-bold leading-tight;
+
+        width: 100%;
+        min-width: 3em;
+
+        -moz-appearance: textfield;
+        appearance: textfield;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 6rem;
+
+        @apply fancy-input-scroll overscroll-contain;
+    }
+
+    .input-number {
+        @apply relative;
+
+        box-sizing: border-box;
+        width: 5.5rem;
+        min-width: 3em;
+
+        &:not(.input-number--disabled, .input-number--readonly):hover {
+            .input-number__arrow {
+                display: flex;
+            }
+        }
+
+        &--large {
+            input {
+                @apply text-lg h-11 leading-normal;
+            }
+        }
+
+        &__arrow {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: .6em;
+            position: absolute;
+            right: 0;
+            height: calc(50% - 3px);
+            width: 32%;
+            max-width: 40px;
+            margin: 3px;
+            z-index: 1;
+
+            @apply rounded-md bg-white text-gray-600 select-none;
+
+            &:hover {
+                @apply bg-blue-50 text-primary;
+            }
+
+            &:active {
+                @apply bg-blue-100;
+            }
+
+            &--up {
+                top: 0;
+                padding-top: .2em;
+            }
+
+            &--down {
+                bottom: 0;
+                padding-bottom: .2em;
+            }
+        }
+    }
+}
