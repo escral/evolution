@@ -1,14 +1,12 @@
 import type { DisplayObject } from "pixi.js"
 import { move } from "@/helpers/Movement"
-import { useStageStore } from "@/store/useStageStore"
+import Collidable from "@/lib/models/Collidable"
 
-export default class Projectile {
+export default class Projectile extends Collidable {
     declare angle: number
     declare speed: number
     declare damage: number
     declare lifeTime: number
-
-    declare element: DisplayObject
 
     startAt: number | null = null
 
@@ -19,6 +17,8 @@ export default class Projectile {
         lifeTime: number,
         element: DisplayObject,
     ) {
+        super()
+
         this.angle = angle
         this.speed = speed
         this.damage = damage
@@ -28,8 +28,8 @@ export default class Projectile {
 
     update(delta: number) {
         move(this.element, {
-            x: Math.cos(this.angle),
-            y: Math.sin(this.angle),
+            x: -Math.sin(this.angle),
+            y: Math.cos(this.angle),
         }, delta * this.speed)
     }
 
@@ -46,10 +46,6 @@ export default class Projectile {
             this.startAt += elapsed
         }
 
-        if (this.startAt >= this.lifeTime) {
-            return true
-        }
-
-        return true
+        return this.startAt < this.lifeTime
     }
 }

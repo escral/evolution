@@ -1,7 +1,7 @@
 <template>
     <div class="relative">
-        <UI>
-            <StageUI />
+        <UI class="z-10">
+            <RouterView />
         </UI>
 
         <div id="game" />
@@ -11,12 +11,16 @@
 <script setup lang="ts">
     import useApp from '@/composables/useApp'
     import UI from "@/components/UI.vue"
-    import StageUI from "@/components/StageUI.vue"
+    import { useRouter } from "vue-router"
 
-    const { mount, init } = useApp()
+    const { mount, init } = useApp({
+        router: useRouter(),
+    })
 
     onMounted(() => {
         mount()
         init()
     })
+
+
 </script>

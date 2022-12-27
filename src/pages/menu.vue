@@ -4,7 +4,6 @@
             <RouterLink
                 :to="{ name: 'stage' }"
                 class="p-4 rounded-lg bg-black/20 hover:bg-black/30 cursor-pointer"
-                @click="start"
             >
                 Start
             </RouterLink>
@@ -19,8 +18,4 @@
 
 <script setup>
     import UI from "@/components/UI.vue"
-
-    const start = () => {
-
-    }
 </script>
