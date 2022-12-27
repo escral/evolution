@@ -24,6 +24,12 @@ const immunityTimer = new Timer()
 
 const events = []
 
+const shake = {
+    durationMs: null,
+    intensity: null,
+    initialPosition: null,
+}
+
 export const useStageStore = defineStore('stage-stats', {
     state: () => ({
         wave: 5,
@@ -103,6 +109,7 @@ export const useStageStore = defineStore('stage-stats', {
             this.castProjectiles(delta)
             this.handleProjectiles(delta, elapsedMS)
             this.handleActingObjects(delta, elapsedMS)
+            this.handleShake(delta, elapsedMS)
         },
 
         initHotkeys() {
@@ -132,6 +139,25 @@ export const useStageStore = defineStore('stage-stats', {
         },
 
         // On tick ========================================
+
+        handleShake(delta, elapsedMS) {
+            if (shake.durationMs === null) {
+                return
+            }
+
+            const dampingSpeed = 1
+
+            if (shake.durationMs > 0) {
+                shake.durationMs -= elapsedMS * dampingSpeed
+                this.stage.position.set(
+                    (Math.random() > 0.5 ? 1 : -1) * shake.intensity * delta,
+                    (Math.random() > 0.5 ? 1 : -1) * shake.intensity * delta,
+                )
+            } else {
+                shake.durationMs = null
+                this.stage.position.set(shake.initialPosition.x, shake.initialPosition.y)
+            }
+        },
 
         movePlayer(delta) {
             // Move player
@@ -193,7 +219,7 @@ export const useStageStore = defineStore('stage-stats', {
         collidePlayer(delta, elapsedMS) {
             immunityTimer.increment(delta)
 
-            const rate = 20
+            const rate = 60
 
             if (!immunityTimer.enoughTimePassed(rate)) {
                 return
@@ -204,6 +230,8 @@ export const useStageStore = defineStore('stage-stats', {
                     immunityTimer.reset()
 
                     this.player.takeDamage(enemy.stats.damage)
+
+                    this.shakeScreen()
 
                     if (!this.player.isAlive) {
                         this.lose()
@@ -241,6 +269,12 @@ export const useStageStore = defineStore('stage-stats', {
         },
 
         // Other ========================================
+
+        shakeScreen(intensity = 1, durationMs = 100) {
+            shake.durationMs = durationMs
+            shake.intensity = intensity
+            shake.initialPosition = this.stage.position.clone()
+        },
 
         spawnEnemy() {
             const enemy = EnemyFactory.create(this.difficulty * this.wave)
@@ -339,19 +373,20 @@ export const useStageStore = defineStore('stage-stats', {
         },
 
         start() {
+            this.resetStage()
             this.place(this.player.element, 'center')
             this.play()
         },
 
         resetStage() {
+            this.player.heal()
             this.stage.removeChildren()
             this.projectiles = []
+            this.actingObjects = []
             this.enemies = []
         },
 
         restart() {
-            this.resetStage()
-            this.player.heal()
             this.start()
             this.app.render()
         },
