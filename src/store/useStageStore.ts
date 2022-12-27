@@ -7,18 +7,21 @@ import EnemyFactory from "@/lib/factories/Enemy/EnemyFactory"
 import PlayerFactory from "@/lib/factories/Player/PlayerFactory"
 import Timer from "@/lib/models/Timer"
 import Vector from "@/lib/core/Vector"
+import DamageTextProjectileFactory from "@/lib/factories/Projectile/DamageTextProjectileFactory"
 
 import type { Application } from "pixi.js"
 import type { Input, Point } from "@/types"
 import type { Raw } from "vue"
-import type Projectile from "@/lib/models/Projectile"
 import type Enemy from "@/lib/models/Enemy"
 import type Player from "@/lib/models/Player"
 import type { Router } from "vue-router"
+import type ActingObject from "@/lib/models/ActingObject"
 
 const enemySpawnTimer = new Timer()
 const shootTimer = new Timer()
 const immunityTimer = new Timer()
+
+const events = []
 
 export const useStageStore = defineStore('stage-stats', {
     state: () => ({
@@ -35,11 +38,12 @@ export const useStageStore = defineStore('stage-stats', {
         app: null as Raw<Application>,
         router: null as Raw<Router>,
         input: null as Input,
+        inputController: null as ReturnType<typeof useInput>,
 
         //
 
         player: null as Raw<Player>,
-        projectiles: markRaw([]) as Raw<Projectile[]>,
+        projectiles: markRaw([]) as Raw<ActingObject[]>,
         enemies: markRaw([]) as Raw<Enemy[]>,
     }),
 
@@ -69,19 +73,23 @@ export const useStageStore = defineStore('stage-stats', {
             this.router = markRaw(router)
 
             // Init movements
-            const controller = useInput()
-            controller.listenToKeyboard()
+            this.inputController = useInput()
+            this.inputController.listenToKeyboard()
+            this.input = this.inputController.input
 
-            this.input = controller.input
+            // Init hotkeys
+            this.initHotkeys()
 
             // Init player
             this.player = markRaw(PlayerFactory.create())
 
             // Init game loop
             this.app.ticker.add(this.onTick.bind(this))
+        },
 
-            // Start
-            this.start()
+        destroy() {
+            this.destroyHotkeys()
+            this.inputController.destroy()
         },
 
         onTick(delta) {
@@ -92,6 +100,32 @@ export const useStageStore = defineStore('stage-stats', {
             this.collidePlayer(delta, elapsedMS)
             this.castProjectiles(delta)
             this.handleProjectiles(delta, elapsedMS)
+        },
+
+        initHotkeys() {
+            const event = this.onKeyUp.bind(this)
+            events.push(event)
+            window.addEventListener('keyup', event)
+        },
+
+        destroyHotkeys() {
+            events.forEach(event => {
+                window.removeEventListener('keyup', event)
+            })
+
+            events.splice(0, events.length)
+        },
+
+        // Input Events
+
+        onKeyUp(event: KeyboardEvent) {
+            if (event.key === 'Escape') {
+                if (this.app.ticker.started) {
+                    this.pause()
+                } else {
+                    this.play()
+                }
+            }
         },
 
         // On tick ========================================
@@ -124,7 +158,9 @@ export const useStageStore = defineStore('stage-stats', {
         collideProjectile(projectile) {
             for (const enemy of this.enemies) {
                 if (projectile.collidesWith(enemy.element)) {
-                    enemy.takeDamage(projectile.damage)
+                    const damageTaken = enemy.takeDamage(projectile.damage)
+
+                    this.castDamageTextProjectile(damageTaken, projectile.angle, enemy.element.position)
 
                     this.destroyProjectile(projectile)
 
@@ -208,6 +244,14 @@ export const useStageStore = defineStore('stage-stats', {
             this.place(projectile.element, this.player.element.position)
         },
 
+        castDamageTextProjectile(damage, angle: number, position: Point) {
+            const projectile = DamageTextProjectileFactory.create(damage, angle)
+            console.log(damage)
+            this.projectiles.push(projectile)
+
+            this.place(projectile.element, position)
+        },
+
         destroyEnemy(enemy) {
             enemy.destroy()
             this.enemies.splice(this.enemies.indexOf(enemy), 1)
@@ -259,11 +303,17 @@ export const useStageStore = defineStore('stage-stats', {
         // Game process ========================================
 
         play() {
+            if (this.app.ticker.started) {
+                return
+            }
+
+            this.router.push({ name: 'stage-game' })
             this.app.ticker.start()
         },
 
         pause() {
             this.app.ticker.stop()
+            this.router.push({ name: 'stage-pause' })
         },
 
         start() {

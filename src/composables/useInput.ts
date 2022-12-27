@@ -9,47 +9,56 @@ export default function useInput() {
         space: 0,
     }
 
-    const listenToKeyboard = () => {
-        window.addEventListener('keydown', (event) => {
-            if (event.code === 'ArrowUp' || event.code === 'KeyW') {
-                input.up = 1
-            }
-            if (event.code === 'ArrowDown' || event.code === 'KeyS') {
-                input.down = 1
-            }
-            if (event.code === 'ArrowLeft' || event.code === 'KeyA') {
-                input.left = 1
-            }
-            if (event.code === 'ArrowRight' || event.code === 'KeyD') {
-                input.right = 1
-            }
-            if (event.code === 'Space') {
-                input.space = 1
-            }
-        })
+    const onKeyDown = (event) => {
+        if (event.code === 'ArrowUp' || event.code === 'KeyW') {
+            input.up = 1
+        }
+        if (event.code === 'ArrowDown' || event.code === 'KeyS') {
+            input.down = 1
+        }
+        if (event.code === 'ArrowLeft' || event.code === 'KeyA') {
+            input.left = 1
+        }
+        if (event.code === 'ArrowRight' || event.code === 'KeyD') {
+            input.right = 1
+        }
+        if (event.code === 'Space') {
+            input.space = 1
+        }
+    }
 
-        window.addEventListener('keyup', (event) => {
-            if (event.code === 'ArrowUp' || event.code === 'KeyW') {
-                input.up = 0
-            }
-            if (event.code === 'ArrowDown' || event.code === 'KeyS') {
-                input.down = 0
-            }
-            if (event.code === 'ArrowLeft' || event.code === 'KeyA') {
-                input.left = 0
-            }
-            if (event.code === 'ArrowRight' || event.code === 'KeyD') {
-                input.right = 0
-            }
-            if (event.code === 'Space') {
-                input.space = 0
-            }
-        })
+    const onKeyUp = (event) => {
+        if (event.code === 'ArrowUp' || event.code === 'KeyW') {
+            input.up = 0
+        }
+        if (event.code === 'ArrowDown' || event.code === 'KeyS') {
+            input.down = 0
+        }
+        if (event.code === 'ArrowLeft' || event.code === 'KeyA') {
+            input.left = 0
+        }
+        if (event.code === 'ArrowRight' || event.code === 'KeyD') {
+            input.right = 0
+        }
+        if (event.code === 'Space') {
+            input.space = 0
+        }
+    }
+
+    const listenToKeyboard = () => {
+        window.addEventListener('keydown', onKeyDown)
+        window.addEventListener('keyup', onKeyUp)
+    }
+
+    const destroy = () => {
+        window.removeEventListener('keydown', onKeyDown)
+        window.removeEventListener('keyup', onKeyUp)
     }
 
     return {
         input,
         //
         listenToKeyboard,
+        destroy,
     }
 }

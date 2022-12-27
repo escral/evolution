@@ -3,7 +3,13 @@ import type { DisplayObject } from "pixi.js"
 export default class Collidable {
     declare element: DisplayObject
 
+    isCollider = true
+
     collidesWith(object: DisplayObject) {
+        if (! this.isCollider) {
+            return false
+        }
+
         if (! object._bounds || ! this.element._bounds) {
             return false
         }

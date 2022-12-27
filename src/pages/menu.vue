@@ -1,21 +1,25 @@
 <template>
     <UI class="flex items-center justify-center">
-        <div class="m-auto w-[200px] text-lg font-bold flex flex-col gap-2 text-center">
-            <RouterLink
-                :to="{ name: 'stage' }"
-                class="p-4 rounded-lg bg-black/20 hover:bg-black/30 cursor-pointer"
-            >
-                Start
-            </RouterLink>
-            <div
-                class="p-4 rounded-lg bg-black/20 hover:bg-black/30 cursor-pointer"
-            >
-                Exit
-            </div>
-        </div>
+        <Menu :items="menu" />
     </UI>
 </template>
 
 <script setup>
+    import Menu from "@/components/Menu.vue"
     import UI from "@/components/UI.vue"
+    import { useRouter } from "vue-router"
+
+    const router = useRouter()
+
+    const menu = [
+        {
+            text: 'Start',
+            onClick: () => {
+                router.push({ name: 'stage-game' })
+            },
+        },
+        {
+            text: 'Exit',
+        },
+    ]
 </script>

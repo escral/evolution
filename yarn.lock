@@ -258,7 +258,7 @@
   resolved "https://registry.yarnpkg.com/@pixi/display/-/display-7.0.5.tgz#e2beac76c2811043deea07c43766ddc430db45e0"
   integrity sha512-9sXXn7HMFJo5cb4KU3Bdzzhhler9KBuPotHG57gew1MbsMCP32+lvPzqMB1bj6OU0QLjknJxvON77j13CNBh+w==
 
-"@pixi/events@7.0.5":
+"@pixi/events@7.0.5", "@pixi/events@^7.0.5":
   version "7.0.5"
   resolved "https://registry.yarnpkg.com/@pixi/events/-/events-7.0.5.tgz#abe1fec8b362d0a086016ddcd4bbbe4a709f9266"
   integrity sha512-WKXSOvyfIl2RF5vFG3sT50gvBhH9SqiO4ymdX3GdRi2R+jB5Xo/vJBaBdZCC9sPqC5avhqj6oorQpcL3YoyJkg==

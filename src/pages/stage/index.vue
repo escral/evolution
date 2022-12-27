@@ -13,7 +13,7 @@
     import UI from "@/components/UI.vue"
     import { useRouter } from "vue-router"
 
-    const { mount, init } = useApp({
+    const { mount, init, destroy } = useApp({
         router: useRouter(),
     })
 
@@ -22,5 +22,7 @@
         init()
     })
 
-
+    onUnmounted(() => {
+        destroy()
+    })
 </script>

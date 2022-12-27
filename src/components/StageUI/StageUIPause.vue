@@ -12,6 +12,13 @@
 
     const menu = [
         {
+            text: 'Continue',
+            onClick: () => {
+                store.play()
+                router.push({ name: 'stage-game' })
+            },
+        },
+        {
             text: 'Restart',
             onClick: () => {
                 store.restart()

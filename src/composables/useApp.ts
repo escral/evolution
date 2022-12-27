@@ -18,9 +18,15 @@ export default function useApp({ router }) {
             app,
             router,
         })
-        stage.play()
+
+        stage.start()
 
         initiated.value = true
+    }
+
+    const destroy = () => {
+        const stage = useStageStore()
+        stage.destroy()
     }
 
     return {
@@ -29,5 +35,6 @@ export default function useApp({ router }) {
         //
         mount,
         init,
+        destroy,
     }
 }

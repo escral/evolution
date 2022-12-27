@@ -15,7 +15,11 @@ export default class Enemy extends Collidable {
     }
 
     takeDamage(damage: number) {
-        this.stats.health -= damage
+        const damageTaken = damage
+
+        this.stats.health -= damageTaken
+
+        return damageTaken
     }
 
     get isAlive() {
