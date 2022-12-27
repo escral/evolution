@@ -7,8 +7,11 @@
         "fix": "eslint --fix"
     },
     "dependencies": {
+        "feather-icons": "4",
         "floating-vue": "^2.0.0-beta.20",
         "pinia": "^2.0.28",
+        "vue-feather": "2",
+        "vue-router": "4",
         "vue-toastification": "next"
     },
     "devDependencies": {

@@ -1,4 +1,8 @@
 import { createApp } from 'vue'
+import { createPinia } from "pinia"
+import { createRouter, createWebHashHistory } from "vue-router"
+
+import routes from "@/routes"
 
 // import core & assets styles
 import '@/assets/styles/App.pcss'
@@ -11,9 +15,21 @@ import ConfirmPlugin from '@/plugins/ConfirmPlugin'
 
 // Components
 import App from '@/App.vue'
+import VueFeather from 'vue-feather'
+
+//
 
 const app = createApp(App)
+const pinia = createPinia()
+const router = createRouter({
+    history: createWebHashHistory(),
+    routes,
+})
 
+app.component('VueFeather', VueFeather)
+
+app.use(router)
+app.use(pinia)
 app.use(ModalPlugin)
 app.use(ConfirmPlugin)
 app.use(Toast, {
