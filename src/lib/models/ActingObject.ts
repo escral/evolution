@@ -1,8 +1,8 @@
 import type { DisplayObject } from "pixi.js"
 import { move } from "@/helpers/Movement"
-import Collidable from "@/lib/models/Collidable"
+import Element from "@/lib/models/Element"
 
-export default class ActingObject extends Collidable {
+export default class ActingObject extends Element {
     declare angle: number
     declare speed: number
     declare lifeTime: number

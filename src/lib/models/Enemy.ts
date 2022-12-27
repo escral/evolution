@@ -1,8 +1,12 @@
 import type { DisplayObject } from "pixi.js"
 import type Stats from "@/lib/models/Stats"
-import Collidable from "@/lib/models/Collidable"
+import Element from "@/lib/models/Element"
+import Collidable from "@/lib/mixins/Collidable"
+import { applyMixins } from "@/helpers/Architecture"
 
-export default class Enemy extends Collidable {
+interface Enemy extends Element, Collidable {}
+
+class Enemy extends Element {
     declare stats: Stats
     declare reward: number
 
@@ -30,3 +34,7 @@ export default class Enemy extends Collidable {
         this.element.destroy()
     }
 }
+
+applyMixins(Enemy, [Collidable])
+
+export default Enemy

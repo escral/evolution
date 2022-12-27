@@ -11,10 +11,6 @@ export default class DamageTextProjectileFactory extends Factory {
             align: 'center',
         })
 
-        const object = new ActingObject(angle, 0.5, 0.5 * 1000, element)
-
-        object.isCollider = false
-
-        return object
+        return new ActingObject(angle, 0.5, 0.5 * 1000, element)
     }
 }

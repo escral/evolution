@@ -1,8 +1,16 @@
 import type { DisplayObject } from "pixi.js"
 import type Stats from "@/lib/models/Stats"
-import Collidable from "@/lib/models/Collidable"
+import { applyMixins } from "@/helpers/Architecture"
+import Element from "@/lib/models/Element"
 
-export default class Player extends Collidable {
+// Mixins
+import Collidable from "@/lib/mixins/Collidable"
+
+//
+
+interface Player extends Element, Collidable {}
+
+class Player extends Element {
     declare stats: Stats
 
     constructor(stats: Stats, element: DisplayObject) {
@@ -32,3 +40,7 @@ export default class Player extends Collidable {
         this.element.destroy()
     }
 }
+
+applyMixins(Player, [Collidable])
+
+export default Player

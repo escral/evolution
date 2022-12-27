@@ -1,15 +1,12 @@
 import type { DisplayObject } from "pixi.js"
+import type Element from "@/lib/models/Element"
 
-export default class Collidable {
-    declare element: DisplayObject
+interface Collidable extends Element {}
 
+class Collidable {
     isCollider = true
 
     collidesWith(object: DisplayObject) {
-        if (! this.isCollider) {
-            return false
-        }
-
         if (! object._bounds || ! this.element._bounds) {
             return false
         }
@@ -23,3 +20,5 @@ export default class Collidable {
             rect.y < rect2.y + rect2.height
     }
 }
+
+export default Collidable

@@ -1,7 +1,11 @@
 import type { DisplayObject } from "pixi.js"
 import ActingObject from "@/lib/models/ActingObject"
+import Collidable from "@/lib/mixins/Collidable"
+import { applyMixins } from "@/helpers/Architecture"
 
-export default class Projectile extends ActingObject {
+interface Projectile extends ActingObject, Collidable {}
+
+class Projectile extends ActingObject {
     declare damage: number
 
     constructor(
@@ -25,3 +29,7 @@ export default class Projectile extends ActingObject {
         this.element = element
     }
 }
+
+applyMixins(Projectile, [Collidable])
+
+export default Projectile

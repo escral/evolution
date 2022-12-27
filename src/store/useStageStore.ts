@@ -16,6 +16,7 @@ import type Enemy from "@/lib/models/Enemy"
 import type Player from "@/lib/models/Player"
 import type { Router } from "vue-router"
 import type ActingObject from "@/lib/models/ActingObject"
+import type Projectile from "@/lib/models/Projectile"
 
 const enemySpawnTimer = new Timer()
 const shootTimer = new Timer()
@@ -43,7 +44,8 @@ export const useStageStore = defineStore('stage-stats', {
         //
 
         player: null as Raw<Player>,
-        projectiles: markRaw([]) as Raw<ActingObject[]>,
+        actingObjects: markRaw([]) as Raw<ActingObject[]>,
+        projectiles: markRaw([]) as Raw<Projectile[]>,
         enemies: markRaw([]) as Raw<Enemy[]>,
     }),
 
@@ -100,6 +102,7 @@ export const useStageStore = defineStore('stage-stats', {
             this.collidePlayer(delta, elapsedMS)
             this.castProjectiles(delta)
             this.handleProjectiles(delta, elapsedMS)
+            this.handleActingObjects(delta, elapsedMS)
         },
 
         initHotkeys() {
@@ -142,12 +145,26 @@ export const useStageStore = defineStore('stage-stats', {
 
         handleProjectiles(delta, elapsedMS) {
             for (const projectile of this.projectiles) {
-                this.moveProjectile(projectile, delta, elapsedMS)
+                this.handleProjectile(projectile, delta, elapsedMS)
                 this.collideProjectile(projectile)
             }
         },
 
-        moveProjectile(projectile, delta, elapsedMS) {
+        handleActingObjects(delta, elapsedMS) {
+            for (const actingObject of this.actingObjects) {
+                this.handleActingObject(actingObject, delta, elapsedMS)
+            }
+        },
+
+        handleActingObject(projectile, delta, elapsedMS) {
+            projectile.update(delta)
+
+            if (!projectile.checkIsAlive(elapsedMS)) {
+                this.destroyActingObject(projectile)
+            }
+        },
+
+        handleProjectile(projectile, delta, elapsedMS) {
             projectile.update(delta)
 
             if (!projectile.checkIsAlive(elapsedMS)) {
@@ -246,8 +263,8 @@ export const useStageStore = defineStore('stage-stats', {
 
         castDamageTextProjectile(damage, angle: number, position: Point) {
             const projectile = DamageTextProjectileFactory.create(damage, angle)
-            console.log(damage)
-            this.projectiles.push(projectile)
+
+            this.actingObjects.push(projectile)
 
             this.place(projectile.element, position)
         },
@@ -260,6 +277,11 @@ export const useStageStore = defineStore('stage-stats', {
         destroyProjectile(projectile) {
             projectile.destroy()
             this.projectiles.splice(this.projectiles.indexOf(projectile), 1)
+        },
+
+        destroyActingObject(projectile) {
+            projectile.destroy()
+            this.actingObjects.splice(this.actingObjects.indexOf(projectile), 1)
         },
 
         getClosestEnemy() {
