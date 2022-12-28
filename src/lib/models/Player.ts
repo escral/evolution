@@ -1,23 +1,25 @@
 import type { DisplayObject } from "pixi.js"
-import type Stats from "@/lib/models/Stats"
+import type PlayerStats from "@/lib/models/PlayerStats"
 import { applyMixins } from "@/helpers/Architecture"
 import Element from "@/lib/models/Element"
 
 // Mixins
 import Collidable from "@/lib/mixins/Collidable"
+import Inventory from "@/lib/models/Inventory"
 
 //
 
 interface Player extends Element, Collidable {}
 
 class Player extends Element {
-    declare stats: Stats
+    declare stats: PlayerStats
+    declare inventory: Inventory
 
-    constructor(stats: Stats, element: DisplayObject) {
-        super()
+    constructor(stats: PlayerStats, element: DisplayObject) {
+        super(element)
 
         this.stats = reactive(stats)
-        this.element = element
+        this.inventory = reactive(new Inventory())
     }
 
     takeDamage(damage: number) {

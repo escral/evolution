@@ -26,6 +26,12 @@
             },
         },
         {
+            text: 'Shop',
+            onClick: () => {
+                router.push({ name: 'stage-shop' })
+            },
+        },
+        {
             text: 'Exit',
             onClick: () => {
                 router.push({ name: 'menu' })

@@ -11,10 +11,9 @@ class Enemy extends Element {
     declare reward: number
 
     constructor(stats: Stats, element: DisplayObject, reward = 1) {
-        super()
+        super(element)
 
         this.stats = stats
-        this.element = element
         this.reward = reward
     }
 

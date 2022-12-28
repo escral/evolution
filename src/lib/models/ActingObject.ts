@@ -15,12 +15,11 @@ export default class ActingObject extends Element {
         lifeTime: number,
         element: DisplayObject,
     ) {
-        super()
+        super(element)
 
         this.angle = angle
         this.speed = speed
         this.lifeTime = lifeTime
-        this.element = element
     }
 
     update(delta: number) {
@@ -28,10 +27,6 @@ export default class ActingObject extends Element {
             x: -Math.sin(this.angle),
             y: Math.cos(this.angle),
         }, delta * this.speed)
-    }
-
-    destroy() {
-        this.element.destroy()
     }
 
     //

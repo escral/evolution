@@ -6,6 +6,9 @@ import stageGame from "@/pages/stage/game.vue"
 import stageLose from "@/pages/stage/lose.vue"
 import stagePause from "@/pages/stage/pause.vue"
 
+// Map
+import map from "@/pages/map/index.vue"
+
 export default [
     {
         path: '/',
@@ -13,7 +16,7 @@ export default [
         name: 'menu',
     },
     {
-        path: '/stage',
+        path: '/stage/:zone',
         component: stage,
         children: [
             {
@@ -32,5 +35,10 @@ export default [
                 name: 'stage-pause',
             },
         ],
+    },
+    {
+        path: '/map',
+        component: map,
+        name: 'map',
     },
 ]

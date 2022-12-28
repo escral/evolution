@@ -17,6 +17,11 @@ import type Player from "@/lib/models/Player"
 import type { Router } from "vue-router"
 import type ActingObject from "@/lib/models/ActingObject"
 import type Projectile from "@/lib/models/Projectile"
+import LootFactory from "@/lib/factories/Loot/LootFactory"
+import type Loot from "@/lib/models/Loot"
+import { useStageLootStore } from "@/store/useStageLootStore"
+import type Zone from "@/types/models/Zone"
+import zones from "@/zones"
 
 const enemySpawnTimer = new Timer()
 const shootTimer = new Timer()
@@ -30,9 +35,9 @@ const shake = {
     initialPosition: null,
 }
 
-export const useStageStore = defineStore('stage-stats', {
+export const useStageStore = defineStore('stage', {
     state: () => ({
-        wave: 5,
+        wave: 2,
         difficulty: 1,
         speed: 1,
 
@@ -53,6 +58,13 @@ export const useStageStore = defineStore('stage-stats', {
         actingObjects: markRaw([]) as Raw<ActingObject[]>,
         projectiles: markRaw([]) as Raw<Projectile[]>,
         enemies: markRaw([]) as Raw<Enemy[]>,
+        loot: markRaw([]) as Raw<Loot[]>,
+
+        //
+
+        stores: markRaw({
+            loot: useStageLootStore(),
+        }),
     }),
 
     getters: {
@@ -69,6 +81,12 @@ export const useStageStore = defineStore('stage-stats', {
                 x: state.app.screen.width / 2,
                 y: state.app.screen.height / 2,
             }
+        },
+
+        zone(state): Zone {
+            const zoneId = Number(state.router.currentRoute.value.params.zone)
+
+            return zones.find(zone => zone.id === zoneId)
         },
     },
 
@@ -93,6 +111,9 @@ export const useStageStore = defineStore('stage-stats', {
 
             // Init game loop
             this.app.ticker.add(this.onTick.bind(this))
+
+            // Init stores
+            Object.values(this.stores).forEach(store => store.init())
         },
 
         destroy() {
@@ -208,9 +229,8 @@ export const useStageStore = defineStore('stage-stats', {
                     this.destroyProjectile(projectile)
 
                     if (!enemy.isAlive) {
+                        this.stores.loot.spawnLoot(enemy.element.position)
                         this.destroyEnemy(enemy)
-
-                        this.money += enemy.reward
                     }
                 }
             }
@@ -269,6 +289,14 @@ export const useStageStore = defineStore('stage-stats', {
         },
 
         // Other ========================================
+
+        spawnLoot(enemy) {
+            const loot = LootFactory.create(enemy.reward)
+            console.log(loot)
+            this.place(loot.element, enemy.element.position)
+
+            this.loot.push(loot)
+        },
 
         shakeScreen(intensity = 1, durationMs = 100) {
             shake.durationMs = durationMs
