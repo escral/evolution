@@ -126,6 +126,7 @@ export const useStageStore = defineStore('stage', {
 
             this.movePlayer(delta)
             this.spawnEnemies(delta)
+            this.moveEnemies(delta)
             this.collidePlayer(delta, elapsedMS)
             this.castProjectiles(delta)
             this.handleProjectiles(delta, elapsedMS)
@@ -188,6 +189,15 @@ export const useStageStore = defineStore('stage', {
                 x: this.input.right - this.input.left,
                 y: this.input.down - this.input.up,
             }, delta * playerSpeed)
+        },
+
+        moveEnemies(delta) {
+            // Move enemies
+            this.enemies.forEach(enemy => {
+                const direction = placementInfo(enemy.element, this.player.element).direction
+
+                move(enemy.element, direction, delta * enemy.stats.speed)
+            })
         },
 
         handleProjectiles(delta, elapsedMS) {

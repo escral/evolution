@@ -11,7 +11,7 @@ export default class EnemyFactory extends Factory {
             health: 1 * level,
             maxHealth: 1 * level,
             damage: Math.ceil(1 * level * 0.2),
-            speed: 10,
+            speed: 2,
         })
 
         return new Enemy(stats, element, level)

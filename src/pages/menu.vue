@@ -15,7 +15,7 @@
         {
             text: 'Start',
             onClick: () => {
-                router.push({ name: 'stage-game' })
+                router.push({ name: 'map' })
             },
         },
         {
