@@ -7,7 +7,9 @@
         "fix": "eslint --fix"
     },
     "dependencies": {
+        "@nuxt/devalue": "^2.0.0",
         "@pixi/events": "^7.0.5",
+        "devalue": "^4.2.0",
         "feather-icons": "4",
         "floating-vue": "^2.0.0-beta.20",
         "pinia": "^2.0.28",

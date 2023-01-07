@@ -1,4 +1,5 @@
 import menu from "@/pages/menu.vue"
+import settings from "@/pages/settings.vue"
 
 // Stage
 import stage from "@/pages/stage/index.vue"
@@ -40,5 +41,10 @@ export default [
         path: '/map',
         component: map,
         name: 'map',
+    },
+    {
+        path: '/settings',
+        component: settings,
+        name: 'settings',
     },
 ]

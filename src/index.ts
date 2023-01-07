@@ -21,6 +21,7 @@ import VueFeather from 'vue-feather'
 
 const app = createApp(App)
 const pinia = createPinia()
+
 const router = createRouter({
     history: createWebHashHistory(),
     routes,

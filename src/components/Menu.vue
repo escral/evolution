@@ -4,7 +4,7 @@
             v-for="(option, $i) in items"
             :key="$i"
             type="button"
-            class="block p-4 rounded-lg bg-black/20 hover:bg-black/30 cursor-pointer w-full max-w-[200px]"
+            class="block p-4 rounded-lg bg-black/20 hover:bg-black/30 cursor-pointer w-full max-w-[200px] select-none"
             :class="option.class"
             @click="handleClick(option)"
         >
