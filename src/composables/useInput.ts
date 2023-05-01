@@ -9,7 +9,7 @@ export default function useInput() {
         space: 0,
     }
 
-    const onKeyDown = (event) => {
+    const onKeyDown = (event: KeyboardEvent) => {
         if (event.code === 'ArrowUp' || event.code === 'KeyW') {
             input.up = 1
         }
@@ -27,7 +27,7 @@ export default function useInput() {
         }
     }
 
-    const onKeyUp = (event) => {
+    const onKeyUp = (event: KeyboardEvent) => {
         if (event.code === 'ArrowUp' || event.code === 'KeyW') {
             input.up = 0
         }

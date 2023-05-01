@@ -22,7 +22,7 @@
             ]
         },
         "typeRoots": [
-            "./src/types",
+            "./src/types"
         ]
     },
     "include": [
