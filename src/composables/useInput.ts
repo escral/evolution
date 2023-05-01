@@ -1,4 +1,4 @@
-import type { Input } from "@/types"
+import type { Input } from '@/types'
 
 export default function useInput() {
     const input: Input = {
